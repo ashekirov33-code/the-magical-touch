@@ -1,0 +1,349 @@
+@import "tailwindcss";
+
+:root {
+  --background: #090711;
+  --foreground: #ece8ff;
+  --surface: #131026;
+  --surface-soft: #1a1533;
+  --accent: #c9b8ff;
+  --accent-strong: #e7dcff;
+  --muted: #aea5d4;
+  --border: #2b244e;
+}
+
+@theme inline {
+  --color-background: var(--background);
+  --color-foreground: var(--foreground);
+  --color-surface: var(--surface);
+  --color-surface-soft: var(--surface-soft);
+  --color-accent: var(--accent);
+  --color-accent-strong: var(--accent-strong);
+  --color-muted: var(--muted);
+  --color-border: var(--border);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  min-height: 100vh;
+  background:
+    radial-gradient(1300px 620px at 8% -8%, #2d1d634f, transparent 56%),
+    radial-gradient(980px 520px at 92% -12%, #4f317f47, transparent 58%),
+    radial-gradient(140% 120% at 50% 50%, transparent 46%, rgba(1, 1, 6, 0.26) 82%, rgba(0, 0, 0, 0.44) 100%),
+    radial-gradient(95% 95% at 50% 50%, rgba(255, 255, 255, 0.045) 0.8px, transparent 1.4px),
+    linear-gradient(180deg, #090711 0%, #090712 45%, #07060f 100%),
+    var(--background);
+  background-size: auto, auto, auto, 4px 4px, auto, auto;
+  color: var(--foreground);
+  font-family: "Segoe UI", "Inter", system-ui, -apple-system, sans-serif;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+.glass-panel {
+  position: relative;
+  overflow: hidden;
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, #1a1533cc 0%, #110e24d6 100%);
+  box-shadow:
+    0 12px 44px rgba(6, 4, 12, 0.5),
+    inset 0 1px 0 rgba(255, 255, 255, 0.05);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  transition:
+    border-color 240ms ease,
+    background-color 240ms ease,
+    box-shadow 240ms ease;
+}
+
+.glass-panel::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  opacity: 0;
+  background: linear-gradient(120deg, rgba(255, 255, 255, 0.07) 0%, rgba(255, 255, 255, 0.015) 32%, transparent 56%);
+  transform: translate3d(-6px, 0, 0);
+  transition: transform 260ms ease, opacity 220ms ease;
+}
+
+.glass-panel:hover {
+  border-color: color-mix(in srgb, var(--accent) 54%, var(--border) 46%);
+  background: linear-gradient(180deg, #201a3ecc 0%, #151131dd 100%);
+  box-shadow:
+    0 16px 50px rgba(6, 4, 12, 0.56),
+    inset 0 1px 0 rgba(255, 255, 255, 0.06);
+}
+
+.glass-panel:hover::before {
+  opacity: 1;
+  transform: translate3d(2px, -1px, 0);
+}
+
+@supports not ((backdrop-filter: blur(8px)) or (-webkit-backdrop-filter: blur(8px))) {
+  .glass-panel {
+    background: linear-gradient(180deg, #1a1533ee 0%, #120f24f4 100%);
+  }
+}
+
+.container-shell {
+  width: min(1120px, calc(100% - 2rem));
+  margin-inline: auto;
+}
+
+.cta-glow:hover {
+  border-color: color-mix(in srgb, var(--accent) 78%, white 22%);
+  box-shadow: 0 0 0 1px rgba(233, 222, 255, 0.16), 0 12px 30px rgba(144, 110, 225, 0.24);
+  transform: translate3d(0, -1.5px, 0);
+}
+
+@keyframes light-sweep {
+  0% {
+    transform: translate3d(-118%, 0, 0) rotate(3deg);
+    opacity: 0;
+  }
+  8% {
+    opacity: 0.12;
+  }
+  46% {
+    opacity: 0.2;
+  }
+  58% {
+    opacity: 0;
+  }
+  100% {
+    transform: translate3d(124%, 0, 0) rotate(3deg);
+    opacity: 0;
+  }
+}
+
+.light-sweep {
+  overflow: hidden;
+}
+
+.light-sweep::before {
+  content: "";
+  position: absolute;
+  left: -126%;
+  top: 28%;
+  width: 44%;
+  height: 6px;
+  opacity: 0;
+  filter: blur(14px);
+  background: linear-gradient(
+    90deg,
+    transparent 0%,
+    rgba(245, 236, 212, 0.04) 18%,
+    rgba(245, 236, 212, 0.24) 50%,
+    rgba(245, 236, 212, 0.06) 80%,
+    transparent 100%
+  );
+  animation: light-sweep 13s ease-in-out infinite;
+  will-change: transform, opacity;
+}
+
+.hero-heading {
+  background: linear-gradient(104deg, rgba(245, 240, 255, 0.96) 0%, rgba(239, 229, 199, 0.92) 54%, rgba(241, 235, 255, 0.95) 100%);
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.cosmic-divider {
+  position: relative;
+  height: 1px;
+  margin-inline: auto;
+  width: min(980px, 100%);
+  background: linear-gradient(90deg, rgba(231, 220, 255, 0.04) 0%, rgba(231, 220, 255, 0.32) 50%, rgba(231, 220, 255, 0.04) 100%);
+  box-shadow: 0 0 14px rgba(172, 140, 230, 0.12);
+  animation: cosmic-breathe 10s ease-in-out infinite;
+}
+
+.cosmic-divider::before,
+.cosmic-divider::after {
+  content: "";
+  position: absolute;
+  top: 50%;
+  width: 3px;
+  height: 3px;
+  border-radius: 9999px;
+  transform: translateY(-50%);
+  background: rgba(244, 236, 255, 0.56);
+  box-shadow: 0 0 8px rgba(235, 226, 255, 0.2);
+}
+
+.cosmic-divider::before {
+  left: 0;
+}
+
+.cosmic-divider::after {
+  right: 0;
+}
+
+@keyframes cosmic-breathe {
+  0%,
+  100% {
+    opacity: 0.85;
+  }
+  50% {
+    opacity: 1;
+  }
+}
+
+.stardust-parallax .stardust-layer {
+  position: absolute;
+  inset: -8%;
+  pointer-events: none;
+  transition: transform 260ms ease-out;
+  will-change: transform;
+}
+
+.stardust-nebula {
+  opacity: 0.18;
+  background:
+    radial-gradient(40% 34% at 22% 20%, rgba(166, 142, 214, 0.18), transparent 72%),
+    radial-gradient(35% 30% at 78% 34%, rgba(219, 198, 154, 0.14), transparent 72%);
+}
+
+.stardust-dust {
+  opacity: 0.12;
+  mix-blend-mode: screen;
+  background-image:
+    radial-gradient(circle at 2px 2px, rgba(255, 255, 255, 0.5) 1px, transparent 0),
+    radial-gradient(circle at 1px 1px, rgba(231, 220, 255, 0.44) 1px, transparent 0);
+  background-size:
+    5px 5px,
+    7px 7px;
+}
+
+.category-spotlight::after {
+  content: "";
+  position: absolute;
+  inset: -20%;
+  pointer-events: none;
+  opacity: 0;
+  background: radial-gradient(circle at var(--spotlight-x, 50%) var(--spotlight-y, 50%), rgba(236, 226, 201, 0.2) 0%, transparent 46%);
+  transition: opacity 220ms ease;
+}
+
+.category-spotlight:hover::after {
+  opacity: 0.85;
+}
+
+.energy-aura-ring {
+  position: absolute;
+  inset: 6%;
+  border-radius: 2rem;
+  border: 1px solid rgba(223, 206, 169, 0.2);
+  box-shadow:
+    0 0 22px rgba(182, 151, 231, 0.16),
+    inset 0 0 14px rgba(240, 224, 189, 0.08);
+  opacity: 0.7;
+}
+
+.energy-particle {
+  position: absolute;
+  border-radius: 9999px;
+  background: radial-gradient(circle, rgba(255, 248, 235, 0.98) 0%, rgba(230, 208, 255, 0.68) 44%, transparent 100%);
+  box-shadow:
+    0 0 12px rgba(244, 230, 198, 0.72),
+    0 0 22px rgba(200, 173, 248, 0.42);
+  filter: blur(0.2px);
+  transform: translate3d(0, 0, 0);
+}
+
+.energy-particle-fly {
+  animation-name: energy-fly;
+  animation-timing-function: ease-in-out;
+  animation-iteration-count: infinite;
+}
+
+.energy-particle-twinkle {
+  animation-name: energy-fly, energy-twinkle;
+  animation-timing-function: ease-in-out, ease-in-out;
+  animation-iteration-count: infinite, infinite;
+  animation-duration: inherit, calc(1.8s + (var(--energy-drift-x, 0px) * 0));
+}
+
+.energy-particle-static {
+  opacity: 0.3;
+}
+
+@keyframes energy-fly {
+  0% {
+    transform: translate3d(0, 0, 0) scale(0.9);
+    opacity: 0.2;
+  }
+  45% {
+    transform: translate3d(var(--energy-drift-x, 0px), calc(var(--energy-drift-y, -40px) * 0.55), 0) scale(1.08);
+    opacity: 0.6;
+  }
+  100% {
+    transform: translate3d(var(--energy-drift-x, 0px), var(--energy-drift-y, -40px), 0) scale(0.92);
+    opacity: 0.14;
+  }
+}
+
+@keyframes energy-twinkle {
+  0%,
+  100% {
+    filter: blur(0.2px) brightness(1.16);
+  }
+  50% {
+    filter: blur(0.08px) brightness(1.76);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .light-sweep::before {
+    animation: none;
+    opacity: 0;
+  }
+
+  .cosmic-divider {
+    animation: none;
+  }
+
+  .hero-heading {
+    background: none;
+    color: var(--foreground);
+  }
+
+  .cta-glow,
+  .cta-glow:hover {
+    transition: none;
+    box-shadow: none;
+    transform: none;
+  }
+
+  .glass-panel,
+  .glass-panel:hover {
+    transition: none;
+  }
+
+  .glass-panel::before,
+  .glass-panel:hover::before,
+  .category-spotlight::after,
+  .stardust-parallax .stardust-layer {
+    transition: none;
+    opacity: 0;
+    transform: none;
+  }
+
+  .energy-particle-float {
+    animation: none;
+  }
+
+  .energy-particle-twinkle,
+  .energy-particle-fly {
+    animation: none;
+  }
+}
